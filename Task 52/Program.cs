@@ -4,15 +4,16 @@ using static System.Console;
 Clear();
 
 Write("Enter the number of rows of the array: ");
-int rows = Convert.ToInt32(ReadLine());
+int rows = Convert.ToInt32(ReadLine()!);
 
 Write("Enter the number of columns of the array: ");
-int columns = Convert.ToInt32(ReadLine());
+int columns = Convert.ToInt32(ReadLine()!);
 
 int[,] array = GetArray(rows, columns, 0, 10);
 PrintArray(array);
-double[] AverageValueColumns = FindMeanElements(array);
-WriteLine($"The arithmetic mean of each column = {String.Join("; ", AverageValueColumns)}");
+WriteLine();
+
+FindAverageMean(array);
 
 int[,] GetArray(int m, int n, int minValue, int maxValue)
 {
@@ -38,15 +39,16 @@ void PrintArray(int[,] inArray)
     }
 }
 
-double[] FindMeanElements(int[,] array)
+void FindAverageMean(int[,] inArray)
 {
-    double[] result = new double[array.GetLength(1)];
-    for (int i = 0; i < array.GetLength(0); i++)
+    Write("The arithmetic mean of each column:");
+    for (int i = 0; i < inArray.GetLength(1); i++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
+        double summ = 0;
+        for (int j = 0; j < inArray.GetLength(0); j++)
         {
-            result[j] += array[i, j] / array.GetLength(0);
+            summ += inArray[j, i];
         }
+        Write($" {summ / inArray.GetLength(0):f1}");
     }
-    return result;
 }
